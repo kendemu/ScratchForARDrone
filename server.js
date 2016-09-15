@@ -5,14 +5,20 @@ var electron = require('electron');
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
 var mainWindow = null;
+var videoWindow = null;
 
 var drone = require("ar-drone").createClient();
 drone.config('general:navdata_demo', 'TRUE');
 
+var lastPng = null;
+
 var dataToTrack_keys = ["batteryPercentage", "clockwiseDegrees", "altitudeMeters", "frontBackDegrees", "leftRightDegrees", "xVelocity", "yVelocity", "zVelocity"];
 var lastDroneDataReceived = null;
 
+
+
 var PORT = 3001;
+var VPORT = 3002;
 var server = null;
 
 
@@ -23,23 +29,29 @@ app.on('window-all-closed', function() {
 });
 
 app.on('ready', function(){
-    server = require("http").createServer(handleRequest);
-    mainWindow = new BrowserWindow({width:800, height:600});
+    server = require("http").createServer(handleRequest);    
+    require('ar-drone-png-stream')(drone, { port: VPORT });
+    
+    mainWindow = new BrowserWindow({width:1920, height:1080});
     mainWindow.loadURL('file://' + __dirname + '/index.html');
 
+        
     mainWindow.on('closed', function() {
 	drone['land']();
 	mainWindow = null;
     });
     
-    server.listen(PORT, function() {
-	return console.log("HTTP server running on port " + PORT);
-    });
     drone.on('navdata', function(data){
 	lastDroneDataReceived = data;
     });
     
+    server.listen(PORT, function() {
+	return console.log("HTTP server running on port " + PORT);
+    });
+    
 });
+
+    
 
 
 /*
@@ -51,6 +63,17 @@ drone.on('navdata', function (data) {
     lastDroneDataReceived = data;
 });
 */
+
+function handleVideoRequest(request, response){
+    if(!lastPng){
+	response.writeHead(503);
+	response.end('Did not receive any png data yet');
+	return;
+    }
+
+    response.writeHead(200, {'Content-Type' : 'image/png'});
+    response.end(lastPng);
+}
 
 function handleRequest(request, response){
     //console.log('It Works!! Path Hit: ' + request.url);
