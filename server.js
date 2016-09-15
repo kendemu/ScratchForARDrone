@@ -17,6 +17,7 @@ var server = null;
 
 
 app.on('window-all-closed', function() {
+    drone['land']();
     if (process.platform != 'darwin')
 	app.quit();
 });
@@ -27,6 +28,7 @@ app.on('ready', function(){
     mainWindow.loadURL('file://' + __dirname + '/index.html');
 
     mainWindow.on('closed', function() {
+	drone['land']();
 	mainWindow = null;
     });
     
