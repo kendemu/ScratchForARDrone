@@ -6,7 +6,8 @@ It consists of a Node.js local server that Scratch communicates with over HTTP. 
 
 ScratchForARDrone is developed by Anshul from [Camp K12](http://campk12.com), based on [documentation for HTTP Extensions](http://wiki.scratch.mit.edu/wiki/Scratch_Extension#HTTP_Extensions) provided by the Scratch team.
 
-Updates to this extension are not guaranteed to be on a regular basis – you may modify and customize as you see fit.
+Modified by Kensei Demura.
+
 
 ### Pre-Requisites
 - Get yourself a [Parrot AR Drone 2.0](http://ardrone2.parrot.com/), duh.. 
@@ -30,17 +31,12 @@ AR Drone's have their own WiFi hotspot. You will need to connect to this network
 Install the ar-drone node module, your server will need to this to connect with a Parrot AR Drone:
 
 ```sh
-$ npm install ar-drone
-```
-or if you want the latest version, you can install via GitHub:
-
-```sh
-$ npm install git://github.com/felixge/node-ar-drone.git
+$ npm install
 ```
 
 Then run the server
 ```sh
-$ node server.js
+$ npm start
 ```
 
 **Import HTTP Extension into Scratch Offline**
