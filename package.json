@@ -1,0 +1,25 @@
+{
+  "name": "scratchforardrone",
+  "version": "1.0.0",
+  "description": "ScratchForARDrone is an HTTP extension for Scratch 2.0 Offline that allows Scratch to communicate with and receive updates from a connected Parrot AR Drone 2.0.",
+  "main": "server.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kendemu/ScratchForARDrone.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kendemu/ScratchForARDrone/issues"
+  },
+  "homepage": "https://github.com/kendemu/ScratchForARDrone#readme"
+}
