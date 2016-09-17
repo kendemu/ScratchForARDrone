@@ -130,7 +130,7 @@ function handleRequest(request, response){
             response.end("DRONE command " + command + " with duration " + duration);
 
 
-            drone.animate(command, duration);
+            drone.animate(command, duration * 1000);
             
             break;
 
